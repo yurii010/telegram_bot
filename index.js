@@ -54,14 +54,8 @@ app.post('/web-data', async (req, res) => {
         });
         return res.status(200).json({})
     } catch (e) {
-        await bot.answerWebAppQuery(queryId, {
-            type: 'article',
-            id: queryId,
-            title: 'Unsuccessful(',
-            input_message_content: { message_text: `Unsuccessful(` },
-        });
+        return res.status(500).json({})
     }
-    return res.status(500).json({})
 })
 
 const PORT = 8000;
