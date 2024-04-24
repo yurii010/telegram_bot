@@ -34,8 +34,8 @@ bot.on('message', async (msg) => {
         try {
             const data = JSON.parse(msg?.web_app_data?.data);
             await bot.sendMessage(chatId, 'Your country: ' + data?.country);
-            await bot.sendMessage(chatId, 'Your country: ' + data?.city);
-            await bot.sendMessage(chatId, 'Your country: ' + data?.subject);
+            await bot.sendMessage(chatId, 'Your city: ' + data?.city);
+            await bot.sendMessage(chatId, 'Your subject: ' + data?.subject);
             await bot.sendMessage(chatId, 'Thank you!');
         } catch (e) {
             console.log(e);
@@ -50,7 +50,7 @@ app.post('/web-data', async (req, res) => {
             type: 'article',
             id: queryId,
             title: 'Successful',
-            input_message_content: { message_text: `Congratulation ${totalPrice}` },
+            input_message_content: { message_text: `Congratulation! Your total price: ${totalPrice}, and list: ${products.map(item => item.title).join(', ')}`, },
         });
         return res.status(200).json({})
     } catch (e) {
