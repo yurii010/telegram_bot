@@ -14,13 +14,14 @@ bot.on('message', async (msg) => {
     const text = msg.text;
 
     if (text === '/start') {
-        await bot.sendMessage(chatId, "Fill form bottom", {
+        await bot.sendMessage(chatId, "Fill form bottom and look at shop😉", {
             reply_markup: {
                 keyboard: [
                     [{ text: 'Open form', web_app: { url: webAppUrl + 'form' } }]
                 ]
             }
         })
+        /*
         await bot.sendMessage(chatId, "Internet shop", {
             reply_markup: {
                 inline_keyboard: [
@@ -28,6 +29,7 @@ bot.on('message', async (msg) => {
                 ]
             }
         })
+        */
     }
 
     if (msg?.web_app_data?.data) {
