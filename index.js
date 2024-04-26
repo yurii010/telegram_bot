@@ -14,17 +14,17 @@ bot.on('message', async (msg) => {
     const text = msg.text;
 
     if (text === '/start') {
-        await bot.sendMessage(chatId, "Заповніть форму нижче", {
+        await bot.sendMessage(chatId, "Fill form bottom", {
             reply_markup: {
                 keyboard: [
-                    [{ text: 'Відкрити форму', web_app: { url: webAppUrl + 'form' } }]
+                    [{ text: 'Open form', web_app: { url: webAppUrl + 'form' } }]
                 ]
             }
         })
-        await bot.sendMessage(chatId, "Інтернет магазин", {
+        await bot.sendMessage(chatId, "Internet shop", {
             reply_markup: {
                 inline_keyboard: [
-                    [{ text: 'Зробити замовлення', web_app: { url: webAppUrl } }]
+                    [{ text: 'Make an order', web_app: { url: webAppUrl } }]
                 ]
             }
         })
@@ -50,7 +50,7 @@ app.post('/web-data', async (req, res) => {
             type: 'article',
             id: queryId,
             title: 'Successful',
-            input_message_content: { message_text: `Congratulation! Your total price: ${totalPrice}, and list: ${products.map(item => item.title).join(', ')}`, },
+            input_message_content: { message_text: `Congratulation! Your total price: ${totalPrice}, and finally list: ${products.map(item => item.title).join(', ')}`, },
         });
         return res.status(200).json({})
     } catch (e) {
