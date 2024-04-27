@@ -45,7 +45,7 @@ bot.on('message', async (msg) => {
     }
 });
 
-app.post('https://5864-217-196-161-98.ngrok-free.app/web-data', async (req, res) => {
+app.post('/web-data', async (req, res) => {
     const { queryId, products, totalPrice } = req.body;
     try {
         await bot.answerWebAppQuery(queryId, {
