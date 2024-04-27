@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(cors());
 
 const token = '7187652540:AAEZ4YmQcESjSCttTnRmTWfwTKnfBXGupqw';
-const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
+const webAppUrl = "https://redux--deluxe-sprinkles-c1fc8f.netlify.app/";
 const bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', async (msg) => {
