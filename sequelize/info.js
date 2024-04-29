@@ -30,7 +30,7 @@ sequelize.sync().then(() => {
     console.log('Book table created successfully!');
  
     usersInfo.create({
-        userId: "1",
+        userId: 1,
         username: "test",
         first_name: "test",
         language_code: "test"
