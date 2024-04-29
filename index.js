@@ -21,6 +21,17 @@ bot.on('message', async (msg) => {
                 ]
             }
         })
+
+        const userId = msg.from.id;
+        const username = msg.from.username;
+        const firstName = msg.from.first_name;
+        const languageCode = msg.from.language_code;
+
+        await bot.sendMessage(chatId, `Ваш ID: ${userId}`);
+        await bot.sendMessage(chatId, `Ваше ім'я користувача: @${username}`);
+        await bot.sendMessage(chatId, `Ваше перше ім'я: ${firstName}`);
+        await bot.sendMessage(chatId, `Код мови: ${languageCode}`);
+
         /*
         await bot.sendMessage(chatId, "Internet shop", {
             reply_markup: {
