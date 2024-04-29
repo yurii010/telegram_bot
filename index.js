@@ -18,7 +18,6 @@ bot.on('message', async (msg) => {
             reply_markup: {
                 keyboard: [
                     [{ text: 'Open form', web_app: { url: webAppUrl + 'form' } }],
-                    [{ text: 'GET', callback_data: 'get' }]
                 ]
             }
         })
@@ -32,10 +31,6 @@ bot.on('message', async (msg) => {
         })
         */
     }
-    bot.action('get', (ctx) => {
-        let user = ctx.update.callback_query.from; ctx.telegram.sendMessage(7777298909547, `${user.username} took the thing`);
-        console.log(ctx);
-    });
 
     if (msg?.web_app_data?.data) {
         try {
