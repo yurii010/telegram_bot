@@ -17,13 +17,19 @@ const usersInfo = sequelize.define("usersInfo", {
     },
 })
 
-sequelize.sync().then(() => {
-    console.log('Book table created successfully!');
-
-    usersInfo.create({
-        userId: 1,
-        username: "test",
-        first_name: "test",
-        language_code: "test"
+const addUser = (info) => {
+    sequelize.sync().then(() => {
+        usersInfo.create({
+            userId: info.userId,
+            username: info.username,
+            first_name: info.firstName,
+            language_code: info.languageCode,
+        })
     })
-})
+}
+
+module.exports = {
+    addUser
+}
+
+

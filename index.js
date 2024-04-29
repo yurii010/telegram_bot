@@ -8,10 +8,8 @@ app.use(cors());
 // Sequelize
 
 const Sequelize = require('sequelize')
+const { addUser } = require('./sequelize/info.model');
 
-function getUserInfo() {
-
-}
 
 const token = '7187652540:AAEZ4YmQcESjSCttTnRmTWfwTKnfBXGupqw';
 const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
@@ -30,15 +28,8 @@ bot.on('message', async (msg) => {
             }
         })
 
-        const userId = msg.from.id;
-        const username = msg.from.username;
-        const firstName = msg.from.first_name;
-        const languageCode = msg.from.language_code;
-
-        await bot.sendMessage(chatId, `Ваш ID: ${userId}`);
-        await bot.sendMessage(chatId, `Ваше ім'я користувача: @${username}`);
-        await bot.sendMessage(chatId, `Ваше перше ім'я: ${firstName}`);
-        await bot.sendMessage(chatId, `Код мови: ${languageCode}`);
+        const userInfo = { userId: msg.from.id, username: msg.from.username, firstName: msg.from.first_name, languageCode: msg.from.language_code };
+        addUser(userInfo);
 
         /*
         await bot.sendMessage(chatId, "Internet shop", {
