@@ -5,6 +5,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Sequelize
+
+const Sequelize = require('sequelize')
+
+function getUserInfo() {
+
+}
+
 const token = '7187652540:AAEZ4YmQcESjSCttTnRmTWfwTKnfBXGupqw';
 const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
 const bot = new TelegramBot(token, { polling: true });
