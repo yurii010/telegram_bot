@@ -95,8 +95,8 @@ bot.on('message', async (msg) => {
 
     app.get('/users', async (req, res) => {
         try {
-            getUserInfo(req);
-            return res.status(200).json({})
+            const users = await getUserInfo();
+            res.status(200).json(users); 
         } catch (e) {
             return res.status(500).json({})
         }
