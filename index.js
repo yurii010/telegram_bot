@@ -71,7 +71,7 @@ bot.on('message', async (msg) => {
     }
 });
 
-const languageFinish = (totalPrice, products) => {
+const languageFinish = (userLanguage, totalPrice, products) => {
     if (userLanguage == 'uk' || userLanguage == 'ru') {
         return (`Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`);
     } else {
@@ -88,7 +88,7 @@ app.post('/web-data', async (req, res) => {
             id: queryId,
             title: 'Successful',
             input_message_content: {
-                message_text: languageFinish(totalPrice, products),
+                message_text: languageFinish(userLanguage, totalPrice, products),
             },
         });
         return res.status(200).json({})
