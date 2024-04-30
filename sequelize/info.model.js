@@ -36,8 +36,17 @@ const addOrUpdateUser = async (info) => {
     }
 };
 
+const getUserInfo = async (userId) => {
+    const user = await usersInfo.findOne({
+        where: { userId },
+    });
+
+    return user;
+};
+
+
 module.exports = {
-    addOrUpdateUser
+    addOrUpdateUser, getUserInfo
 }
 
 

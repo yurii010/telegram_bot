@@ -8,7 +8,7 @@ app.use(cors());
 // Sequelize
 
 const Sequelize = require('sequelize')
-const { addOrUpdateUser } = require('./sequelize/info.model');
+const { addOrUpdateUser, getUserInfo } = require('./sequelize/info.model');
 
 const token = '7187652540:AAEZ4YmQcESjSCttTnRmTWfwTKnfBXGupqw';
 const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
@@ -17,10 +17,11 @@ const bot = new TelegramBot(token, { polling: true });
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text;
-    const userLanguage = msg.from.language_code;
+    const userInfo = { userId: msg.from.id, username: msg.from.username, firstName: msg.from.first_name, languageCode: msg.from.language_code };
+    const userLanguage = userInfo.languageCode;
 
     const languageStart = () => {
-        if (userLanguage == "uk" || userLanguage == "ru") {
+        if (userInfo.languageCode == "uk" || userInfo.languageCode == "ru") {
             return ("Заповніть форму нижче та загляніть в наш магазинчик😉");
         } else {
             return ("Fill form bottom and look at shop😉");
@@ -36,9 +37,7 @@ bot.on('message', async (msg) => {
                 ]
             }
         })
-        const userInfo = { userId: msg.from.id, username: msg.from.username, firstName: msg.from.first_name, languageCode: msg.from.language_code };
         addOrUpdateUser(userInfo);
-
 
         // await bot.sendMessage(chatId, "Internet shop", {
         //     reply_markup: {
@@ -95,9 +94,13 @@ bot.on('message', async (msg) => {
     })
 
     app.get('/users', async (req, res) => {
-        
+        try {
+            console.log(getUserInfo(req));
+            return res.status(200).json({})
+        } catch (e) {
+            return res.status(500).json({})
+        }
     })
-
 });
 
 const PORT = 8000;
