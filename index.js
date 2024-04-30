@@ -18,7 +18,7 @@ bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text;
     const userLanguage = msg.from.language_code;
-    languageStart = () => {
+    const languageStart = () => {
         if (userLanguage == "uk" || userLanguage == "ru") {
             return ("Заповніть форму нижче та загляніть в наш магазинчик😉");
         } else {
