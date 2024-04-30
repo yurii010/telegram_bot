@@ -39,7 +39,7 @@ bot.on('message', async (msg) => {
         const userInfo = { userId: msg.from.id, username: msg.from.username, firstName: msg.from.first_name, languageCode: msg.from.language_code };
         addUser(userInfo);
 
-        /*
+        
         await bot.sendMessage(chatId, "Internet shop", {
             reply_markup: {
                 inline_keyboard: [
@@ -47,7 +47,6 @@ bot.on('message', async (msg) => {
                 ]
             }
         })
-        */
     }
 
     if (msg?.web_app_data?.data) {
@@ -94,6 +93,7 @@ bot.on('message', async (msg) => {
             return res.status(500).json({})
         }
     })
+
 });
 
 const PORT = 8000;
