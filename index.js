@@ -71,13 +71,13 @@ bot.on('message', async (msg) => {
     }
 });
 
-languageFinish = () => {
-    if (userLanguage == 'uk' || userLanguage == 'ru') {
+const languageFinish = () => {
+    if (userLanguage === 'uk' || userLanguage === 'ru') {
         return `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`;
     } else {
-        return `Congratulation! Your total price: ${totalPrice}, and finally list: ${products.map(item => item.title).join(', ')}`;
+        return `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
     }
-}
+};
 
 app.post('/web-data', async (req, res) => {
     const { queryId } = req.body;
