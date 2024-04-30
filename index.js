@@ -73,13 +73,15 @@ bot.on('message', async (msg) => {
 
 app.post('/web-data', async (req, res) => {
     const { queryId, totalPrice, products } = req.body;
+    const text = (userLanguage == 'uk' || userLanguage == 'ru') ? `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}` : `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
+    console.log(text);
     try {
         await bot.answerWebAppQuery(queryId, {
             type: 'article',
             id: queryId,
             title: 'Successful',
             input_message_content: {
-                message_text: console.log((userLanguage == 'uk' || userLanguage == 'ru') ? `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}` : `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`),
+                message_text: text,
             },
         });
         return res.status(200).json({})
