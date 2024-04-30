@@ -73,14 +73,14 @@ bot.on('message', async (msg) => {
 
 const languageFinish = (totalPrice, products) => {
     if (userLanguage === 'uk' || userLanguage === 'ru') {
-        return `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`;
+        return (`Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`);
     } else {
-        return `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
+        return (`Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`);
     }
 };
 
 app.post('/web-data', async (req, res) => {
-    const { queryId, products, totalPrice } = req.body;
+    const { queryId, totalPrice, products } = req.body;
     try {
         await bot.answerWebAppQuery(queryId, {
             type: 'article',
