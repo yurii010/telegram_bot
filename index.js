@@ -40,13 +40,13 @@ bot.on('message', async (msg) => {
         addUser(userInfo);
 
         
-        await bot.sendMessage(chatId, "Internet shop", {
-            reply_markup: {
-                inline_keyboard: [
-                    [{ text: 'Make an order', web_app: { url: webAppUrl } }]
-                ]
-            }
-        })
+        // await bot.sendMessage(chatId, "Internet shop", {
+        //     reply_markup: {
+        //         inline_keyboard: [
+        //             [{ text: 'Make an order', web_app: { url: webAppUrl } }]
+        //         ]
+        //     }
+        // })  
     }
 
     if (msg?.web_app_data?.data) {
