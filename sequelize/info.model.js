@@ -44,7 +44,6 @@ const getUserInfo = async (userId) => {
     return user;
 };
 
-
 module.exports = {
     addOrUpdateUser, getUserInfo
 }

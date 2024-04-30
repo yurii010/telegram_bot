@@ -90,8 +90,7 @@ bot.on('message', async (msg) => {
 
     app.get('/users', async (req, res) => {
         const users = await getUserInfo();
-        res.json(users);
-        return users;
+        return res.json(users);
     })
 });
 
