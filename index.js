@@ -31,7 +31,7 @@ bot.on('message', async (msg) => {
         await bot.sendMessage(chatId, languageStart(), {
             reply_markup: {
                 keyboard: [
-                    [{ text: (userLanguage == 'uk' || 'ru' ? 'Відкрити форму' : 'Open form'), web_app: { url: webAppUrl + (userLanguage == 'uk' || 'ru' ? 'форму' : 'form') } }],
+                    [{ text: (userLanguage == 'uk' || 'ru' ? 'Відкрити форму' : 'Open form'), web_app: { url: webAppUrl + 'form' } }],
                 ]
             }
         })
