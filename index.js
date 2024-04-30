@@ -72,10 +72,12 @@ bot.on('message', async (msg) => {
 });
 
 const languageFinish = (userLanguage, totalPrice, products) => {
+    const ua = `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`;
+    const en = `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
     if (userLanguage == 'uk' || userLanguage == 'ru') {
-        return (`Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`);
+        return ua;
     } else {
-        return (`Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`);
+        return en;
     }
 };
 
