@@ -79,7 +79,7 @@ app.post('/web-data', async (req, res) => {
             id: queryId,
             title: 'Successful',
             input_message_content: {
-                message_text: (userLanguage == 'uk' || 'ru' ? `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}` : `Congratulation! Your total price: ${totalPrice}, and finally list: ${products.map(item => item.title).join(', ')}`),
+                message_text: 'good',
             },
         });
         return res.status(200).json({})
