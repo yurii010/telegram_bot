@@ -13,13 +13,11 @@ const { addUser } = require('./sequelize/info.model');
 const token = '7187652540:AAEZ4YmQcESjSCttTnRmTWfwTKnfBXGupqw';
 const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
 const bot = new TelegramBot(token, { polling: true });
-let language = '';
 
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text;
     const userLanguage = msg.from.language_code;
-    language = userLanguage;
 
     const languageStart = () => {
         if (userLanguage == "uk" || userLanguage == "ru") {
@@ -74,8 +72,8 @@ bot.on('message', async (msg) => {
 });
 
 app.post('/web-data', async (req, res) => {
-    const { queryId, totalPrice, products } = req.body;
-    const userLanguage = req.body.userLanguage;
+    const { queryId, totalPrice, products, userLanguage } = req.body;
+    console.log(userLanguage);
     const text = (userLanguage == 'uk' || userLanguage == 'ru') ? `Вітаємо! Ваша загальна вартість: ${totalPrice} та фінальний список продуктів: ${products.map(item => item.title).join(', ')}` : `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
     try {
         await bot.answerWebAppQuery(queryId, {
