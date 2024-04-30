@@ -73,9 +73,9 @@ bot.on('message', async (msg) => {
 
 languageFinish = () => {
     if (userLanguage == 'uk' || userLanguage == 'ru') {
-        return (`Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`);
+        return `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`;
     } else {
-        return (`Congratulation! Your total price: ${totalPrice}, and finally list: ${products.map(item => item.title).join(', ')}`);
+        return `Congratulation! Your total price: ${totalPrice}, and finally list: ${products.map(item => item.title).join(', ')}`;
     }
 }
 
