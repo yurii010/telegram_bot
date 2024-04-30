@@ -49,22 +49,17 @@ bot.on('message', async (msg) => {
     }
 
     if (msg?.web_app_data?.data) {
-        try {
-            const data = JSON.parse(msg?.web_app_data?.data);
-            if (userLanguage == "uk" || userLanguage == "ru") {
-                await bot.sendMessage(chatId, 'Ваша країна: ' + data?.country);
-                await bot.sendMessage(chatId, 'Ваше місто: ' + data?.city);
-                await bot.sendMessage(chatId, 'Ваша стать: ' + data?.subject);
-                await bot.sendMessage(chatId, 'Дякуємо!');
-            } else {
-                await bot.sendMessage(chatId, 'Your country: ' + data?.country);
-                await bot.sendMessage(chatId, 'Your city: ' + data?.city);
-                await bot.sendMessage(chatId, 'Your subject: ' + data?.subject);
-                await bot.sendMessage(chatId, 'Thank you!');
-            }
-
-        } catch (e) {
-            console.log(e);
+        const data = JSON.parse(msg?.web_app_data?.data);
+        if (userLanguage == "uk" || userLanguage == "ru") {
+            await bot.sendMessage(chatId, 'Ваша країна: ' + data?.country);
+            await bot.sendMessage(chatId, 'Ваше місто: ' + data?.city);
+            await bot.sendMessage(chatId, 'Ваша стать: ' + data?.subject);
+            await bot.sendMessage(chatId, 'Дякуємо!');
+        } else {
+            await bot.sendMessage(chatId, 'Your country: ' + data?.country);
+            await bot.sendMessage(chatId, 'Your city: ' + data?.city);
+            await bot.sendMessage(chatId, 'Your subject: ' + data?.subject);
+            await bot.sendMessage(chatId, 'Thank you!');
         }
     }
 
@@ -94,12 +89,9 @@ bot.on('message', async (msg) => {
     })
 
     app.get('/users', async (req, res) => {
-        try {
-            const users = await getUserInfo();
-            res.status(200).json(users); 
-        } catch (e) {
-            return res.status(500).json({})
-        }
+        const users = await getUserInfo();
+        res.json(users);
+        return users;
     })
 });
 
