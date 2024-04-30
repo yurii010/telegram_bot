@@ -77,11 +77,11 @@ const setLanguage = (totalPrice, products, language) => {
     } else {
         return (`Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`);
     }
-    console.log(language);
 }
 
 app.post('/web-data', async (req, res) => {
     const { queryId, totalPrice, products, userLanguage } = req.body;
+    console.log(userLanguage);
     try {
         await bot.answerWebAppQuery(queryId, {
             type: 'article',
