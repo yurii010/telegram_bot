@@ -71,10 +71,17 @@ bot.on('message', async (msg) => {
     }
 });
 
+const setLanguage = (totalPrice, products, language) => {
+    if (language == 'uk' || language == 'ru') {
+        return(`Вітаємо! Ваша загальна вартість: ${totalPrice} та фінальний список продуктів: ${products.map(item => item.title).join(', ')}`);
+    }else{
+        return(`Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`);
+    }
+}
+
 app.post('/web-data', async (req, res) => {
     const { queryId, totalPrice, products, userLanguage } = req.body;
-    console.log(userLanguage);
-    const text = (userLanguage == 'uk' || userLanguage == 'ru') ? `Вітаємо! Ваша загальна вартість: ${totalPrice} та фінальний список продуктів: ${products.map(item => item.title).join(', ')}` : `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
+    const text = setLanguage(totalPrice, products, userLanguage);
     try {
         await bot.answerWebAppQuery(queryId, {
             type: 'article',
