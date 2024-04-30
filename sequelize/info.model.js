@@ -17,29 +17,27 @@ const usersInfo = sequelize.define("usersInfo", {
     },
 })
 
-const addUser = async (info) => {
-    const userExists = await usersInfo.findOne({
-        where: {
-            userId: info.userId,
+const addOrUpdateUser = async (info) => {
+    const [user, created] = await usersInfo.findOrCreate({
+        where: { userId: info.userId },
+        defaults: {
+            username: info.username,
+            first_name: info.firstName,
+            language_code: info.languageCode,
         },
     });
 
-    if (userExists) {
-        return;
-    } else {
-        sequelize.sync().then(() => {
-            usersInfo.create({
-                userId: info.userId,
-                username: info.username,
-                first_name: info.firstName,
-                language_code: info.languageCode,
-            })
-        })
+    if (!created) {
+        await user.update({
+            username: info.username,
+            first_name: info.firstName,
+            language_code: info.languageCode,
+        });
     }
-}
+};
 
 module.exports = {
-    addUser
+    addOrUpdateUser
 }
 
 

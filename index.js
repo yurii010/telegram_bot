@@ -8,7 +8,7 @@ app.use(cors());
 // Sequelize
 
 const Sequelize = require('sequelize')
-const { addUser } = require('./sequelize/info.model');
+const { addOrUpdateUser } = require('./sequelize/info.model');
 
 const token = '7187652540:AAEZ4YmQcESjSCttTnRmTWfwTKnfBXGupqw';
 const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
@@ -37,9 +37,9 @@ bot.on('message', async (msg) => {
             }
         })
         const userInfo = { userId: msg.from.id, username: msg.from.username, firstName: msg.from.first_name, languageCode: msg.from.language_code };
-        addUser(userInfo);
+        addOrUpdateUser(userInfo);
 
-        
+
         // await bot.sendMessage(chatId, "Internet shop", {
         //     reply_markup: {
         //         inline_keyboard: [
@@ -92,6 +92,10 @@ bot.on('message', async (msg) => {
         } catch (e) {
             return res.status(500).json({})
         }
+    })
+
+    app.get('/users', async (req, res) => {
+        
     })
 
 });
