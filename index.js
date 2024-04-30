@@ -75,7 +75,7 @@ bot.on('message', async (msg) => {
 
 app.post('/web-data', async (req, res) => {
     const { queryId, totalPrice, products } = req.body;
-    const text = (language == 'uk' || language == 'ru') ? `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}` : `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
+    const text = (language == 'uk' || language == 'ru') ? `Вітаємо! Ваша загальна вартість: ${totalPrice}та фінальний список продуктів: ${products.map(item => item.title).join(', ')}` : `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
     try {
         await bot.answerWebAppQuery(queryId, {
             type: 'article',
