@@ -83,6 +83,7 @@ const languageFinish = (userLanguage, totalPrice, products) => {
 
 app.post('/web-data', async (req, res) => {
     const { queryId, totalPrice, products } = req.body;
+    const messageText = languageFinish(userLanguage, totalPrice, products);
     console.log(languageFinish(totalPrice, products));
     try {
         await bot.answerWebAppQuery(queryId, {
@@ -90,7 +91,7 @@ app.post('/web-data', async (req, res) => {
             id: queryId,
             title: 'Successful',
             input_message_content: {
-                message_text: languageFinish(userLanguage, totalPrice, products),
+                message_text: messageText,
             },
         });
         return res.status(200).json({})
