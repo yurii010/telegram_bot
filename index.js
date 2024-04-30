@@ -72,12 +72,13 @@ bot.on('message', async (msg) => {
 });
 
 languageFinish = () => {
-    if (userLanguage == 'uk' || 'ru') {
-        return (`Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`);
+    if (userLanguage == 'uk' || userLanguage == 'ru') {
+        return;
     } else {
-        return (`Congratulation! Your total price: ${totalPrice}, and finally list: ${products.map(item => item.title).join(', ')}`);
+        return;
     }
 }
+
 
 app.post('/web-data', async (req, res) => {
     const { queryId, products, totalPrice } = req.body;
@@ -87,7 +88,7 @@ app.post('/web-data', async (req, res) => {
             id: queryId,
             title: 'Successful',
             input_message_content: {
-                message_text: languageFinish(),
+                message_text: (userLanguage == 'uk' || userLanguage == 'ru' ? (`Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`) : (`Congratulation! Your total price: ${totalPrice}, and finally list: ${products.map(item => item.title).join(', ')}`)),
             },
         });
         return res.status(200).json({})
