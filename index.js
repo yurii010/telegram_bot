@@ -14,7 +14,6 @@ const token = '7187652540:AAEZ4YmQcESjSCttTnRmTWfwTKnfBXGupqw';
 const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
 const bot = new TelegramBot(token, { polling: true });
 const userLanguages = {};
-console.log(userLanguages)
 
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
@@ -75,7 +74,9 @@ bot.on('message', async (msg) => {
 });
 
 app.post('/web-data', async (req, res) => {
-    const { queryId, totalPrice, products, userLanguage } = req.body;
+    const { queryId, totalPrice, products, chatId } = req.body;
+    const user = await getUserByChatId(chatId);
+    const userLanguage = user.languageCode;
     const text = (userLanguage == 'uk' || userLanguage == 'ru') ? `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}` : `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
     console.log(text);
     try {
