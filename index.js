@@ -71,7 +71,7 @@ bot.on('message', async (msg) => {
     }
 });
 
-const languageFinish = (userLanguage, totalPrice, products) => {
+const languageFinish = (totalPrice, products) => {
     const ua = `Вітаємо! Ваша загальна вартість: ${totalPrice}, і фінальний список: ${products.map(item => item.title).join(', ')}`;
     const en = `Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`;
     if (userLanguage == 'uk' || userLanguage == 'ru') {
@@ -83,7 +83,7 @@ const languageFinish = (userLanguage, totalPrice, products) => {
 
 app.post('/web-data', async (req, res) => {
     const { queryId, totalPrice, products } = req.body;
-    const messageText = languageFinish(userLanguage, totalPrice, products);
+    const messageText = languageFinish(totalPrice, products);
     console.log(languageFinish(totalPrice, products));
     try {
         await bot.answerWebAppQuery(queryId, {
