@@ -95,7 +95,7 @@ bot.on('message', async (msg) => {
 
     app.get('/users', async (req, res) => {
         try {
-            console.log(getUserInfo(req));
+            getUserInfo(req);
             return res.status(200).json({})
         } catch (e) {
             return res.status(500).json({})
