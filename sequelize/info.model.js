@@ -44,8 +44,8 @@ const getUser = async (info) => {
     return user.language_code;
 };
 
-const getUserLanguage = async (info) => {
-    const languageCode = await getUser(info);
+const getUserLanguage = async (item) => {
+    const languageCode = await getUser(item);
     console.log(languageCode);
     return languageCode;
 };
