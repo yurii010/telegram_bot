@@ -1,3 +1,4 @@
+const { json } = require("body-parser");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize('bot', 'root', '', { host: '127.0.0.1', dialect: 'mysql' });
 
@@ -36,18 +37,14 @@ const addOrUpdateUser = async (info) => {
     }
 };
 
-const getUser = async (info) => {
+const getUserLanguage = async (userId) => {
     const user = await usersInfo.findOne({
-        where: { userId: info },
+        where: { userId: userId },
         attributes: ['language_code'],
     });
-    return user.language_code;
-};
-
-const getUserLanguage = async (item) => {
-    const languageCode = await getUser(item);
-    console.log(languageCode);
-    return languageCode;
+    const normLang = JSON.stringify(user.language_code);
+    console.log(normLang);
+    return normLang;
 };
 
 module.exports = {
