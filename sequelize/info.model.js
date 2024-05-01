@@ -38,7 +38,7 @@ const addOrUpdateUser = async (info) => {
 
 const getUser = async (info) => {
     const user = await usersInfo.findOne({
-        where: { userId: info.userId },
+        where: { userId: info },
         attributes: ['language_code'],
     });
     return user.language_code;
