@@ -43,7 +43,6 @@ const getUserLanguage = async (userId) => {
         attributes: ['language_code'],
     });
     const normLang = JSON.stringify(user.language_code);
-    console.log(normLang);
     return normLang;
 };
 
