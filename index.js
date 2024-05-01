@@ -8,7 +8,7 @@ app.use(cors());
 // Sequelize
 
 const Sequelize = require('sequelize')
-const { addOrUpdateUser, getUserInfo } = require('./sequelize/info.model');
+const { addOrUpdateUser, getUserLanguage } = require('./sequelize/info.model');
 
 const token = '7187652540:AAEZ4YmQcESjSCttTnRmTWfwTKnfBXGupqw';
 const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
@@ -87,19 +87,15 @@ bot.on('message', async (msg) => {
             return res.status(500).json({})
         }
     })
-
-    app.get('/users', async (req, res) => {
-        const users = await getUserInfo(userInfo);
-        await bot.answerWebAppQuery(queryId, {
-            type: 'article',
-            id: queryId,
-            title: 'Successful',
-            input_message_content: {
-                message_text: users,
-            },
-        });
-        return res.status(200).json({});
-    })
+    app.get('/user-language', async (req, res) => {
+        const { userId } = req.query;
+        try {
+            const languageCode = await getUserLanguage(userId);
+            return res.status(200).json({ languageCode });
+        } catch (error) {
+            return res.status(500).json({});
+        }
+    });
 });
 
 const PORT = 8000;

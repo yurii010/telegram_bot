@@ -36,16 +36,23 @@ const addOrUpdateUser = async (info) => {
     }
 };
 
-const getUserInfo = async (info) => {
+const getUser = async (info) => {
     const user = await usersInfo.findOne({
         where: { userId: info.userId },
+        attributes: ['language_code'],
     });
+    return user.language_code;
+};
 
-    return user;
+const getUserLanguage = async (info) => {
+    const languageCode = await getUser(info);
+    console.log(languageCode);
+    return languageCode;
 };
 
 module.exports = {
-    addOrUpdateUser, getUserInfo
+    addOrUpdateUser,
+    getUserLanguage,
 }
 
 
