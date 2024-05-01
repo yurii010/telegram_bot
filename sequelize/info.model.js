@@ -36,9 +36,9 @@ const addOrUpdateUser = async (info) => {
     }
 };
 
-const getUserInfo = async (userId) => {
+const getUserInfo = async (info) => {
     const user = await usersInfo.findOne({
-        where: { userId },
+        where: { userId: info.userId },
     });
 
     return user;
