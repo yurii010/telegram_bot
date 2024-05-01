@@ -92,7 +92,7 @@ bot.on('message', async (msg) => {
         const { userId } = req.body;
         try {
             const languageCode = await getUserLanguage(userId);
-            return res.status(200).json({ languageCode });
+            return JSON.stringify(languageCode);
         } catch (error) {
             return res.status(500).json({}); 
         }
