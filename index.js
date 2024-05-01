@@ -89,8 +89,17 @@ bot.on('message', async (msg) => {
     })
 
     app.get('/users', async (req, res) => {
-        const users = await getUserInfo();
-        return res.json(users);
+        const userId = req.params.userId;
+        const users = await getUserInfo(userId);
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Successful',
+            input_message_content: {
+                message_text: users,
+            },
+        });
+        return res.status(200).json({});
     })
 });
 
