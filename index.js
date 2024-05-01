@@ -87,13 +87,13 @@ bot.on('message', async (msg) => {
             return res.status(500).json({})
         }
     })
-    app.get('/user-language', async (req, res) => {
-        const { userId } = req.query;
+    app.post('/user-language', async (req, res) => {
+        const { userId } = req.body;
         try {
             const languageCode = await getUserLanguage(userId);
             return res.status(200).json({ languageCode });
         } catch (error) {
-            return res.status(500).json({});
+            return res.status(500).json({}); 
         }
     });
 });
