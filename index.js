@@ -87,7 +87,8 @@ bot.on('message', async (msg) => {
             return res.status(500).json({})
         }
     })
-    app.post('/user-language', async (req, res) => {
+
+    app.post('/language', async (req, res) => {
         const { userId } = req.body;
         try {
             const languageCode = await getUserLanguage(userId);
