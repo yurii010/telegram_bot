@@ -18,10 +18,9 @@ bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text;
     const userInfo = { userId: msg.from.id, username: msg.from.username, firstName: msg.from.first_name, languageCode: msg.from.language_code };
-    const userLanguage = userInfo.languageCode;
-
+    
     const languageStart = () => {
-        if (userInfo.languageCode == "uk" || userInfo.languageCode == "ru") {
+        if (userInfo.languageCode == "uk") {
             return ("Заповніть форму нижче та загляніть в наш магазинчик😉");
         } else {
             return ("Fill form bottom and look at shop😉");
@@ -33,7 +32,7 @@ bot.on('message', async (msg) => {
         await bot.sendMessage(chatId, languageStart(), {
             reply_markup: {
                 keyboard: [
-                    [{ text: (userLanguage == 'uk' || 'ru' ? 'Відкрити форму' : 'Open form'), web_app: { url: webAppUrl + 'form' } }],
+                    [{ text: (userInfo.languageCode == 'uk' ? 'Відкрити форму' : 'Open form'), web_app: { url: webAppUrl + 'form' } }],
                 ]
             }
         })
@@ -50,7 +49,7 @@ bot.on('message', async (msg) => {
 
     if (msg?.web_app_data?.data) {
         const data = JSON.parse(msg?.web_app_data?.data);
-        if (userLanguage == "uk" || userLanguage == "ru") {
+        if (userInfo.languageCode == "uk") {
             await bot.sendMessage(chatId, 'Ваша країна: ' + data?.country);
             await bot.sendMessage(chatId, 'Ваше місто: ' + data?.city);
             await bot.sendMessage(chatId, 'Ваша стать: ' + data?.subject);
@@ -64,7 +63,7 @@ bot.on('message', async (msg) => {
     }
 
     const setLanguage = (totalPrice, products, language) => {
-        if (language == 'uk' || language == 'ru') {
+        if (language == 'uk') {
             return (`Вітаємо! Ваша загальна вартість: ${totalPrice} та фінальний список продуктів: ${products.map(item => item.title).join(', ')}`);
         } else {
             return (`Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`);
