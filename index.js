@@ -78,7 +78,7 @@ bot.on('message', async (msg) => {
                 id: queryId,
                 title: 'Successful',
                 input_message_content: {
-                    message_text: setLanguage(totalPrice, products, userLanguage),
+                    message_text: setLanguage(totalPrice, products, userInfo.languageCode),
                 },
             });
             return res.status(200).json({})
