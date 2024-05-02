@@ -18,9 +18,10 @@ bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text;
     const userInfo = { userId: msg.from.id, username: msg.from.username, firstName: msg.from.first_name, languageCode: msg.from.language_code };
+    const userLang = userInfo.languageCode;
     
     const languageStart = () => {
-        if (userInfo.languageCode == "uk") {
+        if (userLang == "uk") {
             return ("Заповніть форму нижче та загляніть в наш магазинчик😉");
         } else {
             return ("Fill form bottom and look at shop😉");
@@ -32,7 +33,7 @@ bot.on('message', async (msg) => {
         await bot.sendMessage(chatId, languageStart(), {
             reply_markup: {
                 keyboard: [
-                    [{ text: (userInfo.languageCode == 'uk' ? 'Відкрити форму' : 'Open form'), web_app: { url: webAppUrl + 'form' } }],
+                    [{ text: (userLang == 'uk' ? 'Відкрити форму' : 'Open form'), web_app: { url: webAppUrl + 'form' } }],
                 ]
             }
         })
@@ -49,7 +50,7 @@ bot.on('message', async (msg) => {
 
     if (msg?.web_app_data?.data) {
         const data = JSON.parse(msg?.web_app_data?.data);
-        if (userInfo.languageCode == "uk") {
+        if (userLang == "uk") {
             await bot.sendMessage(chatId, 'Ваша країна: ' + data?.country);
             await bot.sendMessage(chatId, 'Ваше місто: ' + data?.city);
             await bot.sendMessage(chatId, 'Ваша стать: ' + data?.subject);
@@ -62,8 +63,8 @@ bot.on('message', async (msg) => {
         }
     }
 
-    const setLanguage = (totalPrice, products, language) => {
-        if (language == 'uk') {
+    const setLanguage = (totalPrice, products) => {
+        if (userLang == 'uk') {
             return (`Вітаємо! Ваша загальна вартість: ${totalPrice} та фінальний список продуктів: ${products.map(item => item.title).join(', ')}`);
         } else {
             return (`Congratulations! Your total price: ${totalPrice}, and final list: ${products.map(item => item.title).join(', ')}`);
@@ -78,7 +79,7 @@ bot.on('message', async (msg) => {
                 id: queryId,
                 title: 'Successful',
                 input_message_content: {
-                    message_text: setLanguage(totalPrice, products, userInfo.languageCode),
+                    message_text: setLanguage(totalPrice, products, userLang),
                 },
             });
             return res.status(200).json({})
