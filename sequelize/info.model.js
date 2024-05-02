@@ -1,4 +1,3 @@
-const { json } = require("body-parser");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize('bot', 'root', '', { host: '127.0.0.1', dialect: 'mysql' });
 
@@ -42,8 +41,7 @@ const getUserLanguage = async (userId) => {
         where: { userId: userId },
         attributes: ['language_code'],
     });
-    const normLang = JSON.stringify(user.language_code);
-    return normLang;
+    return user.language_code;
 };
 
 module.exports = {
