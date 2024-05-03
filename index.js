@@ -1,9 +1,12 @@
 const TelegramBot = require('node-telegram-bot-api');
+const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const authRouter = require('./mongodb/authRouter');
 app.use(express.json());
 app.use(cors());
+app.use("/auth", authRouter);
 
 // Sequelize
 
@@ -15,6 +18,7 @@ const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
 const bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', async (msg) => {
+    await mongoose.connect('mongodb+srv://admin:admin@bot.1bvfaq5.mongodb.net/?retryWrites=true&w=majority&appName=bot ')
     const chatId = msg.chat.id;
     const text = msg.text;
     const userInfo = { userId: msg.from.id, username: msg.from.username, firstName: msg.from.first_name, languageCode: msg.from.language_code };
