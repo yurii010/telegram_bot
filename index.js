@@ -7,6 +7,7 @@ const authRouter = require('./mongodb/authRouter');
 app.use(express.json());
 app.use(cors());
 app.use("/auth", authRouter);
+const PORT = 8000;
 
 // Sequelize
 
@@ -18,12 +19,11 @@ const webAppUrl = "https://main--dashing-buttercream-8dc15b.netlify.app/";
 const bot = new TelegramBot(token, { polling: true });
 
 bot.on('message', async (msg) => {
-    await mongoose.connect('mongodb+srv://admin:admin@bot.1bvfaq5.mongodb.net/?retryWrites=true&w=majority&appName=bot ')
     const chatId = msg.chat.id;
     const text = msg.text;
     const userInfo = { userId: msg.from.id, username: msg.from.username, firstName: msg.from.first_name, languageCode: msg.from.language_code };
     const userLang = userInfo.languageCode;
-    
+
     const languageStart = () => {
         if (userLang == "uk") {
             return ("Заповніть форму нижче та загляніть в наш магазинчик😉");
@@ -104,7 +104,15 @@ bot.on('message', async (msg) => {
     });
 });
 
-const PORT = 8000;
-app.listen(PORT, () => {
-    console.log(`server on ${PORT}`);
-});
+const start = async () => {
+    try {
+        await mongoose.connect('mongodb+srv://admin:admin@telegrambot.ykeh4m6.mongodb.net/?retryWrites=true&w=majority&appName=telegramBot')
+        app.listen(PORT, () => {
+            console.log(`server on ${PORT}`);
+        });
+    } catch (error) {
+        console.log(error)
+    }
+}
+start()
+
