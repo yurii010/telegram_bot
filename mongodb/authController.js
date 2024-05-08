@@ -22,7 +22,7 @@ class authController {
             const { email, username, password } = req.body
             const candidate = await User.findOne({ email })
             if (candidate) {
-                const message = userLang == 'ua' ? 'Користувач з такою поштовою адресою вже існує' : 'This email is already taken';
+                const message = userLang == 'uk' ? 'Користувач з такою поштовою адресою вже існує' : 'This email is already taken';
                 return res.status(400).json({ message })
             }
             const hashPassword = bcrypt.hashSync(password, 7);
@@ -40,12 +40,12 @@ class authController {
             const { email, password } = req.body
             const user = await User.findOne({ email })
             if (!user) {
-                const message = userLang == 'ua' ? 'Такого користувача не існує. Перевірте дані' : 'No such user exists. Check the data';
+                const message = userLang == 'uk' ? 'Такого користувача не існує. Перевірте дані' : 'No such user exists. Check the data';
                 return res.status(400).json({ message })
             }
             const validPasssword = bcrypt.compareSync(password, user.password)
             if (!validPasssword) {
-                const message = userLang == 'ua' ? 'Пароль неправильний' : 'The password is incorrect';
+                const message = userLang == 'uk' ? 'Пароль неправильний' : 'The password is incorrect';
                 return res.status(400).json({ message })
             }
             const token = generateAccessToken(user._id, user.roles);
