@@ -13,6 +13,7 @@ const generateAccessToken = (id, roles) => {
 class authController {
     async registration(req, res) {
         try {
+            const userLang = req.headers['accept-language'];
             const errors = validationResult(req)
             const errorMessages = errors.array().map(err => err.msg);
             if (!errors.isEmpty()) {
@@ -21,7 +22,8 @@ class authController {
             const { email, username, password } = req.body
             const candidate = await User.findOne({ email })
             if (candidate) {
-                return res.status(400).json({ message: 'Користувач з такою поштовою адресою вже існує' })
+                const message = userLang == 'ua' ? 'Користувач з такою поштовою адресою вже існує' : 'This email is already taken';
+                return res.status(400).json({ message })
             }
             const hashPassword = bcrypt.hashSync(password, 7);
             const userRole = await Role.findOne({ value: 'user' })
@@ -34,14 +36,17 @@ class authController {
     }
     async login(req, res) {
         try {
+            const userLang = req.headers['accept-language'];
             const { email, password } = req.body
             const user = await User.findOne({ email })
             if (!user) {
-                return res.status(400).json({ message: `Такого користувача не існує. Перевірте дані` })
+                const message = userLang == 'ua' ? 'Такого користувача не існує. Перевірте дані' : 'No such user exists. Check the data';
+                return res.status(400).json({ message })
             }
             const validPasssword = bcrypt.compareSync(password, user.password)
             if (!validPasssword) {
-                return res.status(400).json({ message: `Пароль неправильний` })
+                const message = userLang == 'ua' ? 'Пароль неправильний' : 'The password is incorrect';
+                return res.status(400).json({ message })
             }
             const token = generateAccessToken(user._id, user.roles);
             return res.json({ token });
