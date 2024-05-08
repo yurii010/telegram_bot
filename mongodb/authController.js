@@ -6,28 +6,26 @@ const { validationResult } = require('express-validator');
 const { secret } = require('../config');
 
 const generateAccessToken = (id, roles) => {
-    const payload = {
-        id,
-        roles
-    }
-    return jwt.sign(payload, secret, { expiresIn: '24h' })
+    const payload = { id, roles }
+    return jwt.sign(payload, secret, { expiresIn: '1h' })
 }
 
 class authController {
     async registration(req, res) {
         try {
             const errors = validationResult(req)
+            const errorMessages = errors.array().map(err => err.msg);
             if (!errors.isEmpty()) {
-                return res.status(400).json({ message: 'Problem with registration!' })
+                return res.status(400).json({ message: errorMessages })
             }
-            const { username, password } = req.body
-            const candidate = await User.findOne({ username })
+            const { email, username, password } = req.body
+            const candidate = await User.findOne({ email })
             if (candidate) {
-                return res.status(400).json({ message: 'Користувач з таким іменем вже існує' })
+                return res.status(400).json({ message: 'Користувач з такою поштовою адресою вже існує' })
             }
             const hashPassword = bcrypt.hashSync(password, 7);
             const userRole = await Role.findOne({ value: 'user' })
-            const user = new User({ username, password: hashPassword, role: [userRole.value] })
+            const user = new User({ email, username, password: hashPassword, roles: [userRole.value] })
             await user.save()
             return res.json({ message: 'User was successful created!' })
         } catch (error) {
@@ -36,10 +34,10 @@ class authController {
     }
     async login(req, res) {
         try {
-            const { username, password } = req.body
-            const user = await User.findOne({ username })
+            const { email, password } = req.body
+            const user = await User.findOne({ email })
             if (!user) {
-                return res.status(400).json({ message: `Користувач ${user} не знайдений` })
+                return res.status(400).json({ message: `Такого користувача не існує. Перевірте дані` })
             }
             const validPasssword = bcrypt.compareSync(password, user.password)
             if (!validPasssword) {

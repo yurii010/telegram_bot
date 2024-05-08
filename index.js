@@ -10,8 +10,6 @@ app.use("/auth", authRouter);
 const PORT = 8000;
 
 // Sequelize
-
-const Sequelize = require('sequelize')
 const { addOrUpdateUser, getUserLanguage } = require('./sequelize/info.model');
 
 const token = '7187652540:AAEZ4YmQcESjSCttTnRmTWfwTKnfBXGupqw';
