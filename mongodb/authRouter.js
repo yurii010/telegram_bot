@@ -9,6 +9,6 @@ router.post('/register', [
     check('password', 'Пароль повинен бути від 4 до 15 елементів').isLength({ min: 4, max: 10 })
 ], controller.registration)
 router.post('/login', controller.login)
-router.post('/users', controller.getUsers)
+router.get('/users', controller.getUsers)
 
 module.exports = router

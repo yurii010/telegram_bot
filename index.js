@@ -94,7 +94,7 @@ bot.on('message', async (msg) => {
         const { userId } = req.body;
         try {
             const userL = await getUserLanguage(userId);
-            console.log(userL)
+            // console.log(userL)
             res.status(200).send({ userL });
         } catch (error) {
             res.status(500).send({ error: 'Internal Server Error' });
