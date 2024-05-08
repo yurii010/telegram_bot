@@ -54,16 +54,16 @@ class authController {
             console.log(error)
         }
     }
-    async getUsers(req, res) {
-        try {
-            const { email } = req.body;
-            const user = await User.findOne({ email });
-            const name = user.username;
-            return res.json({ name });
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // async getUsers(req, res) {
+    //     try {
+    //         const { email } = req.body;
+    //         const user = await User.findOne({ email });
+    //         const name = user.username;
+    //         return res.json({ name });
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 }
 
 module.exports = new authController(); 
