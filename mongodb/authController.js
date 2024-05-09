@@ -14,24 +14,27 @@ class authController {
     async registration(req, res) {
         try {
             const userLang = req.headers['accept-language'];
-            const errors = validationResult(req)
-            const errorMessages = errors.array().map(err => err.msg);
+            const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return res.status(400).json({ message: errorMessages })
+                const errorMessages = errors.array().map(err => err.msg);
+                return res.status(400).json({ message: errorMessages });
             }
-            const { email, username, password } = req.body
-            const candidate = await User.findOne({ email })
+            const { email, username, password } = req.body;
+            const candidate = await User.findOne({ email });
             if (candidate) {
                 const message = userLang == 'uk' ? 'Користувач з такою поштовою адресою вже існує' : 'This email is already taken';
-                return res.status(400).json({ message })
+                return res.status(400).json({ message });
             }
             const hashPassword = bcrypt.hashSync(password, 7);
-            const userRole = await Role.findOne({ value: 'user' })
-            const user = new User({ email, username, password: hashPassword, roles: [userRole.value] })
-            await user.save()
-            return res.json({ message: 'User was successful created!' })
+            const userRole = await Role.findOne({ value: 'user' });
+            const user = new User({ email, username, password: hashPassword, roles: [userRole.value] });
+            await user.save();
+            const successMessage = userLang == 'uk' ? 'Користувач був успішно створений!' : 'User was successfully created!';
+            return res.json({ message: successMessage });
         } catch (error) {
-            res.status(400).json({ message: 'Registration error' })
+            console.log(error);
+            const errorMessage = userLang == 'uk' ? 'Помилка реєстрації' : 'Registration error';
+            return res.status(400).json({ message: errorMessage });
         }
     }
     async login(req, res) {
