@@ -105,7 +105,7 @@ bot.on('message', async (msg) => {
 
 const start = async () => {
     try {
-        await mongoose.connect('mongodb+srv://admin:admin@telegrambot.ykeh4m6.mongodb.net/?retryWrites=true&w=majority&appName=telegramBot')
+        await mongoose.connect('mongodb+srv://admin:admin@cluster0.tcgvg6t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
         app.listen(PORT, () => {
             console.log(`server on ${PORT}`);
         });

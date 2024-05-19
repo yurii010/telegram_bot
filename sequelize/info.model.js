@@ -3,7 +3,7 @@ const sequelize = new Sequelize('bot', 'root', '', { host: '127.0.0.1', dialect:
 
 const usersInfo = sequelize.define("usersInfo", {
     userId: {
-        type: Sequelize.INTEGER(11),
+        type: Sequelize.BIGINT,
         primaryKey: true,
     },
     username: {
@@ -16,6 +16,12 @@ const usersInfo = sequelize.define("usersInfo", {
         type: Sequelize.STRING(50),
     },
 })
+
+// usersInfo.sync({ force: true }).then(() => {
+//     console.log('Таблиця створена успішно.');
+// }).catch(err => {
+//     console.error('Сталася помилка під час створення таблиці:', err);
+// });
 
 const addOrUpdateUser = async (info) => {
     const [user, created] = await usersInfo.findOrCreate({

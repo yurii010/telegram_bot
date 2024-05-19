@@ -63,6 +63,11 @@ class authController {
             const user = await User.findOne({ email });
             const name = user.username;
             return res.json({ name });
+
+            // const userRole = new Role();
+            // const adminRole = new Role({ value: "admin" })
+            // await userRole.save();
+            // await adminRole.save();
         } catch (error) {
             console.log(error);
         }
