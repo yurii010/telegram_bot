@@ -59,7 +59,8 @@ class authController {
     }
     async getUsers(req, res) {
         try {
-            const { email } = req.body;
+            console.log(req.body.email)
+            const { email } = req.body.email;
             const user = await User.findOne({ email });
             const name = user.username;
             return res.json({ name });
