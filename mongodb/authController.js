@@ -63,8 +63,8 @@ class authController {
             const email = req.body.email;
             console.log(email);
             const user = await User.findOne({ email });
-            const name = user.name;
-            console.log(name);
+            const name = user.username;
+            console.log({ name });
             return res.json({ name });
 
             // const userRole = new Role();
