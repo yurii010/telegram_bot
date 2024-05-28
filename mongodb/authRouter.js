@@ -16,6 +16,6 @@ router.post('/register', (req, res, next) => {
     validator(req, res, next);
 }, controller.registration);
 router.post('/login', controller.login)
-router.get('/users', controller.getUsers)
+router.post('/users', controller.getUsers)
 
 module.exports = router
